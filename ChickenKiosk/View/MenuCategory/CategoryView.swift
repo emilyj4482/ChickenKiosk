@@ -7,10 +7,6 @@
 
 import UIKit
 
-protocol CategorySelectDelegate: AnyObject {
-    func updateCategory(_ series: ChickenSeries)
-}
-
 class CategoryView: UIView {
     
     weak var delegate: CategorySelectDelegate?

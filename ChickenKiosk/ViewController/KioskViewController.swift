@@ -24,6 +24,7 @@ class KioskViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         categoryView.delegate = self
+        menuView.delegate = self
         configureUI()
         setupMenuView()
         setupFooterView()
@@ -93,8 +94,6 @@ class KioskViewController: UIViewController {
     }
     
     private func setupMenuView() {
-        menuView.collectionView.dataSource = self
-        menuView.collectionView.delegate = self
         menuView.pageControl.addTarget(self, action: #selector(pageControlTapped(_:)), for: .valueChanged)
     }
     
@@ -113,39 +112,9 @@ extension KioskViewController: CategorySelectDelegate {
         menuView.pageControl.numberOfPages = series.chickens.count / 4 + 1
         menuView.pageControl.currentPage = 0
     }
-}
-
-extension KioskViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return series.chickens.count
-    }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ChickenCell.identifier, for: indexPath) as? ChickenCell
-        else { return UICollectionViewCell() }
-        
-        cell.bind(series.chickens[indexPath.item])
-        
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let index = indexPath.item
-        let chicken = series.chickens[index]
-        if let index = manager.orders.firstIndex(where: { $0.menu == chicken }) {
-            manager.orders[index].count += 1
-        } else {
-            let newOrder = Order(menu: chicken)
-            manager.orders.append(newOrder)
-        }
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = (collectionView.bounds.width - 10) / 2
-        let height = (collectionView.bounds.height - 10) / 2
-        let size = CGSize(width: width, height: height)
-        return size
+    func getSeriesInfo() -> ChickenSeries {
+        return series
     }
 }
 
