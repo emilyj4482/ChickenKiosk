@@ -12,7 +12,7 @@ class CartView: UIView {
     
     weak var delegate: CartViewDelegate?
     
-    private lazy var cartHeaderStackView = CartHeaderStackView(itemCount: manager.orders.count)
+    private lazy var cartHeaderStackView = CartHeaderStackView()
     
     private lazy var cartTableView: UITableView = {
         let tableView = UITableView()
@@ -20,6 +20,7 @@ class CartView: UIView {
         tableView.dataSource = self
         tableView.register(CartTableViewCell.self, forCellReuseIdentifier: "CartCell")
         tableView.separatorStyle = .singleLine
+        tableView.isHidden = true
         
         return tableView
     }()
@@ -29,18 +30,14 @@ class CartView: UIView {
         label.text = "장바구니가 비어있습니다"
         label.font = UIFont.systemFont(ofSize: 16)
         label.textAlignment = .center
-        label.isHidden = true
+        label.isHidden = false
         return label
     }()
     
-    private let manager: OrderManager
-    
-    init(frame: CGRect = .zero, mananger: OrderManager) {
-        self.manager = mananger
+    override init(frame: CGRect = .zero) {
         super.init(frame: frame)
-        addSubViews([cartHeaderStackView, cartTableView, emptyCartLabel])
+        addSubViews([cartHeaderStackView, emptyCartLabel, cartTableView])
         layout()
-        reloadData() // 초기 상태 반영을 위해 추가
     }
     
     required init?(coder: NSCoder) {
@@ -70,10 +67,11 @@ class CartView: UIView {
     }
     
     func reloadData() {
+        guard let delegate = delegate else { return }
         cartTableView.reloadData()
-        cartHeaderStackView.updateTotalCount(newCount: self.manager.totalCount)
-        emptyCartLabel.isHidden = manager.orders.count > 0
-        bringSubviewToFront(emptyCartLabel)
+        cartHeaderStackView.updateTotalCount(newCount: delegate.getTotalOrderCount())
+        emptyCartLabel.isHidden = delegate.getOrdersInfo().count > 0
+        cartTableView.isHidden = !emptyCartLabel.isHidden
     }
 }
 

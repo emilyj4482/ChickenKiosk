@@ -12,12 +12,12 @@ import SnapKit
 class CartHeaderStackView: UIStackView {
     private let cartLabel = UILabel()
     private let itemCountLabel = UILabel()
-    private var itemCount = 0
+    private var itemCount: Int
     
-    init(itemCount: Int) {
+    init(itemCount: Int = 0) {
+        self.itemCount = itemCount
         super.init(frame: .zero)
         setUpCartHeaderStackView()
-        self.itemCount = itemCount
     }
     
     required init(coder: NSCoder) {

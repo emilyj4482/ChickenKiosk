@@ -11,4 +11,5 @@ protocol CartViewDelegate: AnyObject {
     func getOrdersInfo() -> [Order]
     func didTapMinusButton(of index: Int)
     func didTapPlusButton(of index: Int)
+    func getTotalOrderCount() -> Int
 }

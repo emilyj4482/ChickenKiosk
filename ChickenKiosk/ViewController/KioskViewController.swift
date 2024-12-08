@@ -16,7 +16,7 @@ class KioskViewController: UIViewController {
     private lazy var titleView = TitleView()
     private lazy var categoryView = CategoryView()
     private lazy var menuView = MenuView()
-    private lazy var cartView = CartView(mananger: manager)
+    private lazy var cartView = CartView()
     private lazy var sumView = SumView()
     private lazy var footerView = FooterView()
     
@@ -143,6 +143,10 @@ extension KioskViewController: UIScrollViewDelegate {
 }
 
 extension KioskViewController: CartViewDelegate {
+    func getTotalOrderCount() -> Int {
+        manager.totalCount
+    }
+    
     func getOrdersInfo() -> [Order] {
         manager.orders
     }
