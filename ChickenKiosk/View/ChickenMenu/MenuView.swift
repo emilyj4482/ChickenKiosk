@@ -78,7 +78,7 @@ extension MenuView: UICollectionViewDataSource, UICollectionViewDelegate, UIColl
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ChickenCell.identifier, for: indexPath) as? ChickenCell
         else { return UICollectionViewCell() }
         
-        cell.bind(series.chickens[indexPath.item])
+        cell.configure(series.chickens[indexPath.item])
         
         return cell
     }
