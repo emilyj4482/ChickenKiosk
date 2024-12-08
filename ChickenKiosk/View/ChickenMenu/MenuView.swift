@@ -82,18 +82,11 @@ extension MenuView: UICollectionViewDataSource, UICollectionViewDelegate, UIColl
         
         return cell
     }
-    /*
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let index = indexPath.item
-        let chicken = series.chickens[index]
-        if let index = manager.orders.firstIndex(where: { $0.menu == chicken }) {
-            manager.orders[index].count += 1
-        } else {
-            let newOrder = Order(menu: chicken)
-            manager.orders.append(newOrder)
-        }
+        delegate?.didTapChickenCell(of: indexPath.item)
     }
-    */
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = (collectionView.bounds.width - 10) / 2
         let height = (collectionView.bounds.height - 10) / 2

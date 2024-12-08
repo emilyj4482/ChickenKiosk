@@ -10,4 +10,5 @@ import Foundation
 protocol CategorySelectDelegate: AnyObject {
     func updateCategory(_ series: ChickenSeries)
     func getSeriesInfo() -> ChickenSeries
+    func didTapChickenCell(of index: Int)
 }

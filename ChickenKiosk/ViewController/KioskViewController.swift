@@ -116,6 +116,16 @@ extension KioskViewController: CategorySelectDelegate {
     func getSeriesInfo() -> ChickenSeries {
         return series
     }
+    
+    func didTapChickenCell(of index: Int) {
+        let chicken = series.chickens[index]
+        if let index = manager.orders.firstIndex(where: { $0.menu == chicken }) {
+            manager.orders[index].count += 1
+        } else {
+            let newOrder = Order(menu: chicken)
+            manager.orders.append(newOrder)
+        }
+    }
 }
 
 extension KioskViewController: UIScrollViewDelegate {
