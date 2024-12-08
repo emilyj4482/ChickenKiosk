@@ -15,12 +15,7 @@ class KioskViewController: UIViewController {
     
     private let titleView = TitleView()
     
-    private let categoryView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .clear
-        view.layer.cornerRadius = 20
-        return view
-    }()
+    private let categoryView = CategoryView()
     
     private let buttons = [CategoryButton(.honey), CategoryButton(.red), CategoryButton(.kyochon)]
     
