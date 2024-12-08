@@ -24,6 +24,7 @@ class CartTableViewCell: UITableViewCell {
     ) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setUpCell()
+        selectionStyle = .none
     }
     
     required init?(coder: NSCoder) {

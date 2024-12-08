@@ -25,6 +25,7 @@ class KioskViewController: UIViewController {
         view.backgroundColor = .white
         categoryView.delegate = self
         menuView.delegate = self
+        cartView.delegate = self
         configureUI()
         setupMenuView()
         setupFooterView()
@@ -139,6 +140,12 @@ extension KioskViewController: UIScrollViewDelegate {
         let pageWidth = scrollView.frame.width
         let currentPage = ceil(Double(scrollView.contentOffset.x / pageWidth))
         menuView.pageControl.currentPage = Int(currentPage)
+    }
+}
+
+extension KioskViewController: CartViewDelegate {
+    func getOrdersInfo() -> [Order] {
+        manager.orders
     }
 }
 
