@@ -115,7 +115,7 @@ extension KioskViewController: CategorySelectDelegate {
     }
     
     func getSeriesInfo() -> ChickenSeries {
-        return series
+        series
     }
     
     func didTapChickenCell(of index: Int) {
@@ -146,6 +146,14 @@ extension KioskViewController: UIScrollViewDelegate {
 extension KioskViewController: CartViewDelegate {
     func getOrdersInfo() -> [Order] {
         manager.orders
+    }
+    
+    func didTapMinusButton(of index: Int) {
+        manager.lowerCount(index)
+    }
+    
+    func didTapPlusButton(of index: Int) {
+        manager.raiseCount(index)
     }
 }
 

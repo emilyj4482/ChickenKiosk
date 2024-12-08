@@ -90,18 +90,15 @@ extension CartView: UITableViewDataSource {
         else { return UITableViewCell () }
         
         let index = indexPath.row
-        let item = orders[index]
-        cell.configure(with: item)
         
-        cell.minusButtonTapped = {
-            self.manager.orders[index].count -= 1
-            if self.manager.orders[index].count == 0 {
-                self.manager.orders.remove(at: index)
-            }
+        cell.configure(with: orders[index])
+        
+        cell.minusButtonTapped = { [weak self] in
+            self?.delegate?.didTapMinusButton(of: index)
         }
         
-        cell.plusButtonTapped = {
-            self.manager.orders[index].count += 1
+        cell.plusButtonTapped = { [weak self] in
+            self?.delegate?.didTapPlusButton(of: index)
         }
         
         return cell

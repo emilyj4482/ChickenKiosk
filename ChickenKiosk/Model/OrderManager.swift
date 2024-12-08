@@ -30,4 +30,16 @@ final class OrderManager {
     init(orderDidSet: @escaping () -> Void) {
         self.orderDidSet = orderDidSet
     }
+    
+    func raiseCount(_ index: Int) {
+        orders[index].count += 1
+    }
+    
+    func lowerCount(_ index: Int) {
+        if orders[index].count == 1 {
+            orders.remove(at: index)
+        } else {
+            orders[index].count -= 1
+        }
+    }
 }
