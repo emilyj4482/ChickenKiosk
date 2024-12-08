@@ -13,12 +13,12 @@ class KioskViewController: UIViewController {
     var series: ChickenSeries = .honey
     let manager = OrderManager(orderDidSet: {})
     
-    private let titleView = TitleView()
-    private let categoryView = CategoryView()
+    private lazy var titleView = TitleView()
+    private lazy var categoryView = CategoryView()
     private lazy var menuView = MenuView()
     private lazy var cartView = CartView(mananger: manager)
-    private let sumView = SumView()
-    private let footerView = FooterView()
+    private lazy var sumView = SumView()
+    private lazy var footerView = FooterView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,11 +42,11 @@ class KioskViewController: UIViewController {
             view.addSubview($0)
         }
         
-        titleView.snp.makeConstraints { make in
-            make.leading.equalTo(view.snp.leading).offset(16)
-            make.trailing.equalTo(view.snp.trailing).offset(-16)
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(16)
-            make.height.equalTo(50)
+        titleView.snp.makeConstraints {
+            $0.leading.equalTo(view.snp.leading).offset(16)
+            $0.trailing.equalTo(view.snp.trailing).offset(-16)
+            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(16)
+            $0.height.equalTo(50)
         }
         
         categoryView.snp.makeConstraints {
@@ -64,24 +64,24 @@ class KioskViewController: UIViewController {
             $0.height.equalTo(UIScreen.main.bounds.height / 3)
         }
         
-        cartView.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(16)
-            make.top.equalTo(menuView.snp.bottom).offset(8)
+        cartView.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview().inset(16)
+            $0.top.equalTo(menuView.snp.bottom).offset(8)
         }
         
-        sumView.snp.makeConstraints { make in
-            make.leading.equalTo(view.snp.leading).offset(16)
-            make.trailing.equalTo(view.snp.trailing).offset(-16)
-            make.top.equalTo(cartView.snp.bottom).offset(8)
-            make.bottom.equalTo(footerView.snp.top).offset(-16)
-            make.height.equalTo(70)
+        sumView.snp.makeConstraints {
+            $0.leading.equalTo(view.snp.leading).offset(16)
+            $0.trailing.equalTo(view.snp.trailing).offset(-16)
+            $0.top.equalTo(cartView.snp.bottom).offset(8)
+            $0.bottom.equalTo(footerView.snp.top).offset(-16)
+            $0.height.equalTo(70)
         }
         
-        footerView.snp.makeConstraints { make in
-            make.leading.equalTo(view.snp.leading).offset(16)
-            make.trailing.equalTo(view.snp.trailing).offset(-16)
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-16)
-            make.height.equalTo(44)
+        footerView.snp.makeConstraints {
+            $0.leading.equalTo(view.snp.leading).offset(16)
+            $0.trailing.equalTo(view.snp.trailing).offset(-16)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-16)
+            $0.height.equalTo(44)
         }
         
         manager.orderDidSet = { [weak self] in
