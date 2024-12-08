@@ -121,10 +121,9 @@ extension KioskViewController: CategorySelectDelegate {
     func didTapChickenCell(of index: Int) {
         let chicken = series.chickens[index]
         if let index = manager.orders.firstIndex(where: { $0.menu == chicken }) {
-            manager.orders[index].count += 1
+            manager.raiseCount(index)
         } else {
-            let newOrder = Order(menu: chicken)
-            manager.orders.append(newOrder)
+            manager.addOrder(chicken)
         }
     }
 }

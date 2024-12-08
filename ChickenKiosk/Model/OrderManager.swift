@@ -31,6 +31,11 @@ final class OrderManager {
         self.orderDidSet = orderDidSet
     }
     
+    func addOrder(_ chicken: Chicken) {
+        let order = Order(menu: chicken)
+        orders.append(order)
+    }
+    
     func raiseCount(_ index: Int) {
         orders[index].count += 1
     }
