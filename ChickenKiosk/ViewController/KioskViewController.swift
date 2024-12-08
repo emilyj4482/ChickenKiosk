@@ -14,13 +14,8 @@ class KioskViewController: UIViewController {
     let manager = OrderManager(orderDidSet: {})
     
     private let titleView = TitleView()
-    
     private let categoryView = CategoryView()
-    
-    private let buttons = [CategoryButton(.honey), CategoryButton(.red), CategoryButton(.kyochon)]
-    
     private lazy var menuView = MenuView()
-    
     private lazy var cartView = CartView(mananger: manager)
     private let sumView = SumView()
     private let footerView = FooterView()
@@ -61,8 +56,6 @@ class KioskViewController: UIViewController {
             $0.height.equalTo(40)
         }
         
-        setupCategoryView()
-        
         menuView.snp.makeConstraints {
             $0.top.equalTo(categoryView.snp.bottom).offset(16)
             $0.leading.equalToSuperview().offset(16)
@@ -98,35 +91,6 @@ class KioskViewController: UIViewController {
         }
     }
     
-    private func setupCategoryView() {
-        buttons.forEach {
-            categoryView.addSubview($0)
-            
-            $0.snp.makeConstraints {
-                $0.width.equalToSuperview().dividedBy(3)
-                $0.height.equalToSuperview()
-                $0.centerY.equalToSuperview()
-            }
-            
-            $0.addTarget(self, action: #selector(categoryTapped(_:)), for: .touchUpInside)
-        }
-
-        buttons[0].snp.makeConstraints {
-            $0.leading.equalToSuperview()
-        }
-        
-        buttons[1].snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-        }
-        
-        buttons[2].snp.makeConstraints {
-            $0.trailing.equalToSuperview()
-        }
-        
-        // 허니시리즈 버튼은 눌린 채로 시작
-        setButtonSelected(for: buttons[0])
-    }
-    
     private func setupMenuView() {
         menuView.collectionView.dataSource = self
         menuView.collectionView.delegate = self
@@ -143,21 +107,10 @@ extension KioskViewController {
     @objc func categoryTapped(_ sender: CategoryButton) {
         series = sender.series
         menuView.collectionView.reloadData()
-        setButtonSelected(for: sender)
         
         menuView.collectionView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
         menuView.pageControl.numberOfPages = series.chickens.count / 4 + 1
         menuView.pageControl.currentPage = 0
-    }
-    
-    private func setButtonSelected(for button: UIButton) {
-        buttons.forEach {
-            $0.backgroundColor = .clear
-            $0.isSelected = false
-        }
-        
-        button.backgroundColor = .appPrimary
-        button.isSelected = true
     }
 }
 
