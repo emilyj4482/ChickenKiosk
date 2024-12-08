@@ -23,6 +23,7 @@ class KioskViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        categoryView.delegate = self
         configureUI()
         setupMenuView()
         setupFooterView()
@@ -103,9 +104,9 @@ class KioskViewController: UIViewController {
     }
 }
 
-extension KioskViewController {
-    @objc func categoryTapped(_ sender: CategoryButton) {
-        series = sender.series
+extension KioskViewController: CategorySelectDelegate {
+    func updateCategory(_ series: ChickenSeries) {
+        self.series = series
         menuView.collectionView.reloadData()
         
         menuView.collectionView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)

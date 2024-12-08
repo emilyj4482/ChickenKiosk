@@ -7,7 +7,13 @@
 
 import UIKit
 
+protocol CategorySelectDelegate: AnyObject {
+    func updateCategory(_ series: ChickenSeries)
+}
+
 class CategoryView: UIView {
+    
+    weak var delegate: CategorySelectDelegate?
     
     private let buttons = [CategoryButton(.honey), CategoryButton(.red), CategoryButton(.kyochon)]
     
@@ -63,5 +69,6 @@ class CategoryView: UIView {
     
     @objc func categoryTapped(_ sender: CategoryButton) {
         setButtonSelected(for: sender)
+        delegate?.updateCategory(sender.series)
     }
 }
